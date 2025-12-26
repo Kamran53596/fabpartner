@@ -13,17 +13,9 @@ return [
     |
     */
 
-    'home' => 'Peony',
+    'home' => 'Ana səhifə',
     'search' => 'Axtarış',
     'about' => 'Haqqımizda',
-    'profile' => 'Şəxsi kabinet',
-    'profile_edit' => 'Şəxsi məlumatlarım',
-    'faq' => 'Tez-tez verilən suallar',
-    'login' => 'Daxil olun',
-    'register' => 'Qeydiyyat',
-    'forgot_password' => 'Şifrəni yeniləyin',
-    'reset_password' => 'Şifrənin bərpası',
-    'posts' => 'Xəbərlər',
     'contact' => 'Əlaqə',
     '404' => '404 Səhifə tapılmadı'
     

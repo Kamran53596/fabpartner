@@ -13,8 +13,7 @@ return [
     |
     */
 
-    'home_title' => 'Peony',
-    'keywords' => 'Peony',
-    'meta_description' => 'Peony',
+    'seo_keywords' => '',
+    'seo_description' => '',
 
 ];

@@ -10,18 +10,19 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "diglactic/laravel-breadcrumbs": "^10.0",
         "laravel/framework": "^12.0",
-        "laravel/tinker": "^2.10.1",
         "laravel/nova": "5.7.1",
+        "laravel/tinker": "^2.10.1",
+        "mcamara/laravel-localization": "^2.3",
+        "mostafaznv/nova-ckeditor": "^7.7",
         "outl1ne/nova-media-hub": "^3.0",
-        "spatie/laravel-sitemap": "^7.3",
-        "spatie/laravel-sluggable": "^3.7",
         "outl1ne/nova-settings": "^6.0",
         "outl1ne/nova-sortable": "^4.0",
         "outl1ne/nova-translatable": "3.0.2",
-        "mcamara/laravel-localization": "^2.3",
-        "mostafaznv/nova-ckeditor": "^7.7",
-        "diglactic/laravel-breadcrumbs": "^10.0"
+        "sereny/nova-permissions": "^1.7",
+        "spatie/laravel-sitemap": "^7.3",
+        "spatie/laravel-sluggable": "^3.7"
     },
     "repositories": [
         {
