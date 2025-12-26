@@ -1,0 +1,9 @@
+{
+    "Hello!": "Salam!",
+    "Reset Password": "Parolun sıfırlanması",
+    "Reset Password Notification": "Parolu sıfırla bildirişi",
+    "You are receiving this email because we received a password reset request for your account.": "Hesabınız üçün parol sıfırlama sorğusu aldığımıza görə bu e-məktubu alırsınız.",
+    "This password reset link will expire in :count minutes.": "Bu parol sıfırlama linkinin müddəti :count dəqiqə ərzində bitəcək.",
+    "If you did not request a password reset, no further action is required.": "Parolun sıfırlanmasını tələb etməmisinizsə, əlavə hərəkət tələb olunmur.",
+    "Regards": "Hörmətlə"
+}
