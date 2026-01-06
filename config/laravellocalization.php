@@ -344,7 +344,7 @@ return [
 
     // URLs which should not be processed, e.g. '/nova', '/nova/*', '/nova-api/*' or specific application URLs
     // Defaults to []
-    'urlsIgnored' => ['/backend', '/backend/*'],
+    'urlsIgnored' => ['/fab_backend', '/fab_backend/*'],
 
     'httpMethodsIgnored' => ['POST', 'PUT', 'PATCH', 'DELETE'],
 ];

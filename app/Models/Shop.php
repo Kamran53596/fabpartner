@@ -1,29 +1,33 @@
 <?php
 
-namespace App\Models\Module;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Concerns\HasTranslations;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use App\Models\Scopes\StatusScope;
-use App\Concerns\HasImage;
+use App\Concerns\Search;
 use Laravel\Nova\Actions\Actionable;
 
-class Slider extends Model implements Sortable
+class Shop extends Model implements Sortable
 {
     use HasTranslations;
     use SortableTrait;
-    use HasImage;
+    use Search;
     use Actionable;
 
     protected $translatable = [
-        'image',
+        'title',
     ];
 
     public $sortable = [
         'order_column_name' => 'sort_order',
         'sort_when_creating' => false,
+    ];
+
+    protected $searchable = [
+        'title'
     ];
 
     protected static function booted(): void

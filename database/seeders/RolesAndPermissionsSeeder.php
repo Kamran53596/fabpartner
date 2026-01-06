@@ -21,8 +21,11 @@ class RolesAndPermissionsSeeder extends Seeder
         $collection = collect([
             'Slider',
             'Users',
+            'Admin',
             'Product',
             'Category',
+            'Banner',
+            'Shop',
             'Role',
             'Permission'
             // ... // List all your Models you want to have Permissions for.
@@ -30,20 +33,20 @@ class RolesAndPermissionsSeeder extends Seeder
 
         $collection->each(function ($item, $key) {
             // create permissions for each collection item
-            Permission::create(['group' => $item, 'name' => 'viewAny' . $item]);
-            Permission::create(['group' => $item, 'name' => 'view' . $item]);
-            Permission::create(['group' => $item, 'name' => 'update' . $item]);
-            Permission::create(['group' => $item, 'name' => 'create' . $item]);
-            Permission::create(['group' => $item, 'name' => 'delete' . $item]);
-            Permission::create(['group' => $item, 'name' => 'destroy' . $item]);
+            Permission::create(['group' => $item, 'name' => 'viewAny' . $item, 'guard_name' => 'admins']);
+            Permission::create(['group' => $item, 'name' => 'view' . $item, 'guard_name' => 'admins']);
+            Permission::create(['group' => $item, 'name' => 'update' . $item, 'guard_name' => 'admins']);
+            Permission::create(['group' => $item, 'name' => 'create' . $item, 'guard_name' => 'admins']);
+            Permission::create(['group' => $item, 'name' => 'delete' . $item, 'guard_name' => 'admins']);
+            Permission::create(['group' => $item, 'name' => 'destroy' . $item, 'guard_name' => 'admins']);
         });
 
         // Create a Super-Admin Role and assign all Permissions
-        $role = Role::create(['name' => 'super-admin']);
+        $role = Role::create(['name' => 'super-admin', 'guard_name' => 'admins']);
         $role->givePermissionTo(Permission::all());
 
         // Give User Super-Admin Role
-        $user = \App\Models\User::where('email', 'kamran.badalov@amiroff.az')->first(); // Change this to your email.
+        $user = \App\Models\Admin::where('email', 'kamran.badalov@amiroff.az')->first(); // Change this to your email.
         $user->assignRole('super-admin');
     }
 }

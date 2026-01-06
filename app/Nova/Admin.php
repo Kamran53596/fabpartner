@@ -9,17 +9,18 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\MorphToMany;
 
-class User extends Resource
+class Admin extends Resource
 {
     use PasswordValidationRules;
 
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\User>
+     * @var class-string<\App\Models\Admin>
      */
-    public static $model = \App\Models\User::class;
+    public static $model = \App\Models\Admin::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -40,7 +41,7 @@ class User extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @return array<int, \Laravel\Nova\Fields\Field|\Laravel\Nova\Panel|\Laravel\Nova\ResourceTool|\Illuminate\Http\Resources\MergeValue>
+     * @return array<int, \Laravel\Nova\Fields\Field>
      */
     public function fields(NovaRequest $request): array
     {
@@ -63,11 +64,13 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules($this->passwordRules())
                 ->updateRules($this->optionalPasswordRules()),
+
+            MorphToMany::make('Roles', 'roles', \Sereny\NovaPermissions\Nova\Role::class),
         ];
     }
 
     /**
-     * Get the cards available for the request.
+     * Get the cards available for the resource.
      *
      * @return array<int, \Laravel\Nova\Card>
      */
@@ -108,6 +111,6 @@ class User extends Resource
 
     public static function label(): string
     {
-        return __('Users');
+        return __('Admin');
     }
 }

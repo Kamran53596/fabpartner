@@ -1,34 +1,35 @@
 <?php
 
-namespace App\Nova\Module;
+namespace App\Nova;
 
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\URL;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Outl1ne\NovaMediaHub\Nova\Fields\MediaHubField;
 use Outl1ne\NovaSortable\Traits\HasSortableRows;
 
-class Slider extends Resource
+class Shop extends Resource
 {
     use HasSortableRows;
 
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\Module\Slider>
+     * @var class-string<\App\Models\Shop>
      */
-    public static $model = \App\Models\Module\Slider::class;
+    public static $model = \App\Models\Shop::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -36,7 +37,7 @@ class Slider extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'title',
     ];
 
     /**
@@ -49,8 +50,21 @@ class Slider extends Resource
         return [
             ID::make()->sortable(),
 
-            MediaHubField::make(__('Image'), 'image')
-                ->defaultCollection('sliders')->translatable()->rules('required'),
+            Text::make(__('Title'), 'title')->translatable()->rules('required'),
+
+            Text::make(__('Address'), 'address')->translatable()->rules('required'),
+
+            Text::make(__('Latitude'), 'lat')->rules('required'),
+
+            Text::make(__('Longitude'), 'long')->rules('required'),
+
+            Text::make(__('Phone'), 'phone')->rules('required'),
+
+            Select::make(__('Region'), 'region_id')
+                ->searchable()
+                ->options(config('region'))->displayUsingLabels(),
+
+            URL::make(__('Google link'), 'google_map')->rules('required'),
 
             Number::make(__('Sort Order'), 'sort_order')->default(1)->min(1)->sortable()->rules('required'),
 
@@ -103,7 +117,7 @@ class Slider extends Resource
 
     public static function label(): string
     {
-        return __('Sliders');
+        return __('Shops');
     }
 
     public static function indexQuery(NovaRequest $request, Builder $query): Builder

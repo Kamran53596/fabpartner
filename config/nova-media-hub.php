@@ -56,6 +56,8 @@ return [
     'collections' => [
         'default',
         'products',
+        'sliders',
+        'banners'
     ],
 
     // Defines whether user can create collections in the "Upload media" modal

@@ -7,8 +7,12 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Fortify\Features;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Panel;
-use App\Nova\User as Admin;
+use App\Nova\Admin;
+use App\Nova\Catalog\Category;
+use App\Nova\Catalog\Product;
 use App\Nova\Module\Slider;
+use App\Nova\Module\Banner;
+use App\Nova\Shop;
 use App\Nova\Dashboards\Main;
 use Laravel\Nova\Menu\MenuItem;
 use Laravel\Nova\Menu\MenuSection;
@@ -39,13 +43,16 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 MenuSection::dashboard(Main::class, 'dashboard')
                     ->icon('chart-bar'),
 
-                // MenuSection::make('Catalog', [
-                //         MenuItem::resource(Category::class),
-                //         MenuItem::resource(Product::class),
-                //     ])->icon('rectangle-stack')->collapsable(),
+                MenuSection::resource(Shop::class)->icon('building-storefront'),
+
+                MenuSection::make('Catalog', [
+                        MenuItem::resource(Category::class),
+                        MenuItem::resource(Product::class),
+                    ])->icon('rectangle-stack')->collapsable(),
 
                 MenuSection::make('Modules', [
-                        MenuItem::resource(Slider::class)
+                        MenuItem::resource(Slider::class),
+                        MenuItem::resource(Banner::class)
                     ])->icon('puzzle-piece')->collapsable(),
 
                 MenuSection::make('Administator', [
@@ -66,6 +73,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 Text::make(__('Address'), 'address'),
 
                 Text::make(__('Phone'), 'phone'),
+
+                Text::make(__('Whatsapp'), 'whatsapp'),
 
                 Email::make(__('Email'), 'email'),
             ]),
@@ -148,12 +157,17 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new \Outl1ne\NovaSettings\NovaSettings,
             \Outl1ne\NovaMediaHub\MediaHub::make(),
             (new \Sereny\NovaPermissions\NovaPermissions())
+            ->disableMenu()
             ->hideFieldsFromRole([
                 'guard_name'
             ])
             ->hideFieldsFromPermission([
                 'guard_name',
-            ]),
+            ])->resolveGuardsUsing(function($request) {
+                return [ 'admins' ];
+            })->canSee(function ($request) {
+                return $request->user('admins')->isSuperAdmin();
+            }),
         ];
     }
 

@@ -3,7 +3,7 @@
 namespace App\Concerns;
 
 trait Search
-{    
+{
     public static function search(string $q, int $limit = 5, $order = false)
     {
         $modelInstance = new static();
@@ -47,6 +47,7 @@ trait Search
                 $query = $query->orWhere("{$value}->{$modelInstance->getLocale()}", 'LIKE', "%$q%");
             } else {
                 $query = static::where("{$value}->{$modelInstance->getLocale()}", 'LIKE', "%$q%");
+                //$query = static::whereRaw("UPPER(JSON_EXTRACT({$value},'$.{$modelInstance->getLocale()}')) LIKE ? ", "%".strtoupper($q)."%");
             }
 
             $i++;

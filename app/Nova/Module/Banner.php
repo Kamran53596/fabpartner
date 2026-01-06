@@ -1,32 +1,34 @@
 <?php
 
-namespace App\Nova;
+namespace App\Nova\Module;
 
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use App\Nova\Resource;
 use Illuminate\Http\Request;
-use Laravel\Nova\Auth\PasswordValidationRules;
-use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Password;
-use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Outl1ne\NovaMediaHub\Nova\Fields\MediaHubField;
+use Outl1ne\NovaSortable\Traits\HasSortableRows;
 
-class User extends Resource
+class Banner extends Resource
 {
-    use PasswordValidationRules;
+    use HasSortableRows;
 
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\User>
+     * @var class-string<\App\Models\Module\Banner>
      */
-    public static $model = \App\Models\User::class;
+    public static $model = \App\Models\Module\Banner::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -34,40 +36,33 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id',
     ];
 
     /**
      * Get the fields displayed by the resource.
      *
-     * @return array<int, \Laravel\Nova\Fields\Field|\Laravel\Nova\Panel|\Laravel\Nova\ResourceTool|\Illuminate\Http\Resources\MergeValue>
+     * @return array<int, \Laravel\Nova\Fields\Field>
      */
     public function fields(NovaRequest $request): array
     {
         return [
             ID::make()->sortable(),
 
-            Gravatar::make()->maxWidth(50),
+            MediaHubField::make(__('Image'), 'image')
+                ->defaultCollection('banners')->translatable()->rules('required'),
 
-            Text::make('Name')
-                ->sortable()
-                ->rules('required', 'max:255'),
+            Number::make(__('Sort Order'), 'sort_order')->default(1)->min(1)->sortable()->rules('required'),
 
-            Text::make('Email')
-                ->sortable()
-                ->rules('required', 'email', 'max:254')
-                ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{resourceId}}'),
-
-            Password::make('Password')
-                ->onlyOnForms()
-                ->creationRules($this->passwordRules())
-                ->updateRules($this->optionalPasswordRules()),
+            Boolean::make(__('Status'), 'status')
+                ->trueValue(1)
+                ->falseValue(0)
+                ->default(1)->filterable(),
         ];
     }
 
     /**
-     * Get the cards available for the request.
+     * Get the cards available for the resource.
      *
      * @return array<int, \Laravel\Nova\Card>
      */
@@ -108,6 +103,13 @@ class User extends Resource
 
     public static function label(): string
     {
-        return __('Users');
+        return __('Banners');
+    }
+
+    public static function indexQuery(NovaRequest $request, Builder $query): Builder
+    {
+        $query->withoutGlobalScopes();
+        
+        return parent::indexQuery($request, $query);
     }
 }

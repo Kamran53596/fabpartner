@@ -10,7 +10,7 @@ use App\Models\Scopes\StatusScope;
 use App\Concerns\HasImage;
 use Laravel\Nova\Actions\Actionable;
 
-class Slider extends Model implements Sortable
+class Banner extends Model implements Sortable
 {
     use HasTranslations;
     use SortableTrait;

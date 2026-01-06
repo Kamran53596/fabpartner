@@ -182,19 +182,6 @@ return [
     'attributes' => [
         'name' => 'First and last name',
         'phone' => 'Phone',
-        'current_password' => 'Old password',
-        'password' => 'Password',
-        'password_confirmation' => 'Password Confirmation',
-        'email' => 'E-mail',
-        'message' => 'Message',
-        'company' => 'Company Name',
-        'ipo_title_1' => 'What is the operation duration of your company?',
-        'ipo_title_2' => 'What is the ownership structure of your company?',
-        'ipo_title_3' => 'What is the sector of your company?',
-        'ipo_title_4' => 'How many years of audited financial statements of your company are available?',
-        'ipo_title_5' => 'How much is the capitalization of your company?',
-        'ipo_title_6' => 'What % of your company shares will be publicly issued?',
-        'ipo_title_7' => 'How did you learn about Baku Stock Exchange (BSE)',
         'g-recaptcha-response' => 'recaptcha'
     ],
 

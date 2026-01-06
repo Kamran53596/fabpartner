@@ -1,34 +1,38 @@
 <?php
 
-namespace App\Nova\Module;
+namespace App\Nova\Catalog;
 
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\Nova\Resource;
 use Illuminate\Http\Request;
+use Laravel\Nova\Tabs\Tab;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Outl1ne\NovaMediaHub\Nova\Fields\MediaHubField;
 use Outl1ne\NovaSortable\Traits\HasSortableRows;
 
-class Slider extends Resource
+class Category extends Resource
 {
     use HasSortableRows;
-
+    
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\Module\Slider>
+     * @var class-string<\App\Models\Catalog\Category>
      */
-    public static $model = \App\Models\Module\Slider::class;
+    public static $model = \App\Models\Catalog\Category::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -36,7 +40,7 @@ class Slider extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'title',
     ];
 
     /**
@@ -49,15 +53,32 @@ class Slider extends Resource
         return [
             ID::make()->sortable(),
 
-            MediaHubField::make(__('Image'), 'image')
-                ->defaultCollection('sliders')->translatable()->rules('required'),
+            Tab::group(fields: [
 
-            Number::make(__('Sort Order'), 'sort_order')->default(1)->min(1)->sortable()->rules('required'),
+                Tab::make('General', [
+                    Text::make(__('Title'), 'title')->translatable()->rules('required'),
 
-            Boolean::make(__('Status'), 'status')
-                ->trueValue(1)
-                ->falseValue(0)
-                ->default(1)->filterable(),
+                    BelongsTo::make('Parent Category', 'parentCategory', 'App\Nova\Catalog\Category')->sortable()->filterable()->nullable()->hideFromIndex(),
+                
+                    Number::make(__('Sort Order'), 'sort_order')->default(1)->min(1)->sortable()->rules('required'),
+
+                    Boolean::make(__('Status'), 'status')
+                        ->trueValue(1)
+                        ->falseValue(0)
+                        ->default(1)->filterable(),
+                ]),
+
+                Tab::make('Seo', [
+
+                    Slug::make(__('Slug'), 'slug')->translatable()->withMeta(['extraAttributes' => ['readonly' => true]])->hideFromIndex(),
+                    
+                    Textarea::make(__('Seo Keywords'), 'seo_keywords')->translatable()->help(
+                        '<b>Keywords separated by comma</b>'
+                    )->placeholder('Keywords separated by comma'),
+
+                    Textarea::make(__('Seo Description'), 'seo_description')->translatable(),
+                ])
+            ]),
         ];
     }
 
@@ -103,7 +124,7 @@ class Slider extends Resource
 
     public static function label(): string
     {
-        return __('Sliders');
+        return __('Categories');
     }
 
     public static function indexQuery(NovaRequest $request, Builder $query): Builder

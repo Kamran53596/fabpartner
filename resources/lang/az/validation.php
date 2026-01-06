@@ -182,19 +182,6 @@ return [
     'attributes' => [
         'name' => 'Ad, Soyad',
         'phone' => 'Telefon',
-        'password' => 'Şifrə',
-        'current_password' => 'Köhnə şifrə',
-        'password_confirmation' => 'Şifrəni təkrarlayın',
-        'email' => 'E-mail',
-        'message' => 'Mesaj',
-        'company' => 'Şirkətin adı',
-        'ipo_title_1' => 'Şirkətinizin fəaliyyət müddəti',
-        'ipo_title_2' => 'Aşağıdakılarıdan hansı sizin şirkətin mülkiyyət strukturuna uyğundur?',
-        'ipo_title_3' => 'Şirkətinizin fəaliyyət istiqaməti?',
-        'ipo_title_4' => 'Son neçə il üzrə audit olunmuş maliyyə hesabatları mövcuddur',
-        'ipo_title_5' => 'Şirkətinizin nizamnamə kapitalı nə qədərdir?',
-        'ipo_title_6' => 'Şirkətinizin səhmlərinin neçə faizi kütləfi təklif olunacaq?',
-        'ipo_title_7' => 'Bakı Fond Birjası (BFB) barədə məlumatı hansı kanal vasitəsilə əldə etmisiniz',
         'g-recaptcha-response' => 'recaptcha'
     ],
 
