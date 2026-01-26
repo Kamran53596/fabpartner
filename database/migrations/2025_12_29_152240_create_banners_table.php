@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('banners', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('image');
+            $table->string('mob_image');
             $table->integer('sort_order')->default(1);
             $table->boolean('status')->default(1);
             $table->timestamps();

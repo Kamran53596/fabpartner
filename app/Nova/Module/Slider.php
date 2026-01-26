@@ -39,6 +39,8 @@ class Slider extends Resource
         'id',
     ];
 
+    public static $trafficCop = false;
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -50,6 +52,9 @@ class Slider extends Resource
             ID::make()->sortable(),
 
             MediaHubField::make(__('Image'), 'image')
+                ->defaultCollection('sliders')->translatable()->rules('required'),
+
+            MediaHubField::make(__('Mobile Image'), 'mob_image')
                 ->defaultCollection('sliders')->translatable()->rules('required'),
 
             Number::make(__('Sort Order'), 'sort_order')->default(1)->min(1)->sortable()->rules('required'),

@@ -19,6 +19,7 @@ class Slider extends Model implements Sortable
 
     protected $translatable = [
         'image',
+        'mob_image'
     ];
 
     public $sortable = [

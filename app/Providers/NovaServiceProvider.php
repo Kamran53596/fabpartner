@@ -12,6 +12,7 @@ use App\Nova\Catalog\Category;
 use App\Nova\Catalog\Product;
 use App\Nova\Module\Slider;
 use App\Nova\Module\Banner;
+use App\Nova\Pages\AboutPage;
 use App\Nova\Shop;
 use App\Nova\Dashboards\Main;
 use Laravel\Nova\Menu\MenuItem;
@@ -50,6 +51,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         MenuItem::resource(Product::class),
                     ])->icon('rectangle-stack')->collapsable(),
 
+                MenuSection::make('Pages', [
+                        MenuItem::resource(AboutPage::class)
+                    ])->icon('book-open')->collapsable(),
+
                 MenuSection::make('Modules', [
                         MenuItem::resource(Slider::class),
                         MenuItem::resource(Banner::class)
@@ -70,7 +75,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         \Outl1ne\NovaSettings\NovaSettings::addSettingsFields([
 
             new Panel(__('Contacts Settings'), [
-                Text::make(__('Address'), 'address'),
+                Text::make(__('Address'), 'address')->translatable(),
 
                 Text::make(__('Phone'), 'phone'),
 

@@ -56,6 +56,8 @@ return [
     'collections' => [
         'default',
         'products',
+        'categories',
+        'about',
         'sliders',
         'banners'
     ],

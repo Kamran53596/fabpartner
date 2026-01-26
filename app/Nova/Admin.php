@@ -38,6 +38,8 @@ class Admin extends Resource
         'id', 'name', 'email',
     ];
 
+    public static $trafficCop = false;
+
     /**
      * Get the fields displayed by the resource.
      *

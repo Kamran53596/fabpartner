@@ -6,11 +6,7 @@ use App\Http\Controllers\Catalog\ProductController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SearchController;
 
-// Route::get('/fab_backend/', function () {
-//     return redirect('fab_backend/login');
-// });
-
-Auth::routes(['login' => false, 'register' => 'false']);
+Auth::routes();
 
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localizationRedirect', 'localize'] ], function() {
 

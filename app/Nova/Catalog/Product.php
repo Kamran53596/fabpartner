@@ -46,6 +46,8 @@ class Product extends Resource
         'title',
     ];
 
+    public static $trafficCop = false;
+
     /**
      * Get the fields displayed by the resource.
      *

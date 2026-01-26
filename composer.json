@@ -14,6 +14,7 @@
         "laravel/framework": "^12.0",
         "laravel/nova": "5.7.1",
         "laravel/tinker": "^2.10.1",
+        "laravel/ui": "^4.6",
         "mcamara/laravel-localization": "^2.3",
         "mostafaznv/nova-ckeditor": "^7.7",
         "outl1ne/nova-media-hub": "^3.0",
@@ -22,7 +23,8 @@
         "outl1ne/nova-translatable": "3.0.2",
         "sereny/nova-permissions": "^1.7",
         "spatie/laravel-sitemap": "^7.3",
-        "spatie/laravel-sluggable": "^3.7"
+        "spatie/laravel-sluggable": "^3.7",
+        "whitecube/nova-flexible-content": "^2.0"
     },
     "repositories": [
         {

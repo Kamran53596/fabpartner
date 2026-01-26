@@ -11,6 +11,7 @@ use Spatie\EloquentSortable\SortableTrait;
 use App\Models\Scopes\StatusScope;
 use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Tags\Url;
+use App\Concerns\HasImage;
 use Laravel\Nova\Actions\Actionable;
 use Mcamara\LaravelLocalization\Interfaces\LocalizedUrlRoutable;
 
@@ -18,6 +19,7 @@ class Category extends Model implements Sortable, Sitemapable, LocalizedUrlRouta
 {
     use HasTranslations;
     use HasTranslatableSlug;
+    use HasImage;
     use SortableTrait;
     use Actionable;
 

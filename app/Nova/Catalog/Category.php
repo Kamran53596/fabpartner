@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Outl1ne\NovaMediaHub\Nova\Fields\MediaHubField;
 use Outl1ne\NovaSortable\Traits\HasSortableRows;
 
 class Category extends Resource
@@ -43,6 +44,8 @@ class Category extends Resource
         'title',
     ];
 
+    public static $trafficCop = false;
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -59,6 +62,9 @@ class Category extends Resource
                     Text::make(__('Title'), 'title')->translatable()->rules('required'),
 
                     BelongsTo::make('Parent Category', 'parentCategory', 'App\Nova\Catalog\Category')->sortable()->filterable()->nullable()->hideFromIndex(),
+
+                    MediaHubField::make(__('Image'), 'image')
+                        ->defaultCollection('categories')->rules('required'),
                 
                     Number::make(__('Sort Order'), 'sort_order')->default(1)->min(1)->sortable()->rules('required'),
 
